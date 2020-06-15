@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const User = mongoose.model('card-info');
 module.exports = {
 
-    async atualiza_fatura(req, res) {
+    async atualiza_card_list(req, res) {
         await User.findOneAndUpdate({person_email: req.params.person_email},  
-            { $push: { card_fat: req.body.card_fat } } , { new: true})  //Atualiza o array
+            { $push: { cards_list: req.body.cards_list } } , { new: true})  //Atualiza o array
         .then(function(){
             return res.sendStatus(200)
         })
@@ -13,10 +13,10 @@ module.exports = {
             return res.sendStatus(400);
         })
     },
-    async mostra_fatura(req,res){ 
+    async mostra_card(req,res){ 
         await User.findOne({person_email: req.params.person_email})
         .then(function(usr){
-            return res.json(usr.card_fat)
+            return res.json(usr.cards_list)
         })
         .catch(function(err){
             return res.sendStatus(400)
