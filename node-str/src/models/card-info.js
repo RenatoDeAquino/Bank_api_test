@@ -1,14 +1,28 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
+
+const DigiCard = new Schema({
+    valor:{type:String}
+})
 const fatura = new Schema({
-    data:{type: String},
+    name_bank:{type:String},
+    data:{type:Date, default: Date.now},
     item:{type:String},
     valor:{type:String}
 })
+
+const faturaCre = new Schema({
+    name_bank:{type:String},
+    data:{type: Date,default: Date.now},
+    item:{type:String},
+    valor:{type:String}
+})
+
+
 const new_card = new Schema ({
     name:{type:String,required:true,},
-    numero:{type:String,required:true},
+    numero:{type:String,required:true,unique: true},
     venc:{type:String,required:true},
     cvv:{type:String,required:true},
     name_bank:{type:String,required:true},
@@ -26,9 +40,10 @@ const schema = new Schema({
         unique: true
     },
     card_fat:[fatura],
+    card_fatCre:[faturaCre],
 
     cards_list:[new_card],
-
+    DigiList:[DigiCard],
     active:{
         type: Boolean,
         default: true
